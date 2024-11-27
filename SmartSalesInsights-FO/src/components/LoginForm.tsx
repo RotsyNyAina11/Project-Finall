@@ -41,7 +41,7 @@ const Login: React.FC = () => {
             >
 
 
-                <Typography variant="h4" gutterBottom> Login Page</Typography>
+                <Typography variant="h4" gutterBottom> Login </Typography>
 
                 <Box>
                     <TextField
