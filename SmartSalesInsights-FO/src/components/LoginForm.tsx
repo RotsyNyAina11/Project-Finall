@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { login } from "../store/features/authSlice";
-import { Box, Button, Container, Paper, TextField, Typography } from "@mui/material"
+import { Button, Container, Paper, TextField, Typography, Divider, Stack } from "@mui/material"
 import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
@@ -30,32 +30,29 @@ const Login: React.FC = () => {
 
 
             <Paper
-                elevation={10}
+                elevation={3}
                 sx={{
-                    padding: 4,
-                    background: "linear-gradient(145deg, #A50044, #004D98)",
-                    color: "white",
-                    borderRadius: "2",
-                    textAlign: "center"
+                    p: 4,
+                    backgroundColor: "#ffffff",
+                    borderRadius: 3,
+                    boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.12)",
+                    textAlign: "center",
                 }}            
             >
 
 
-                <Typography variant="h4" gutterBottom> Login </Typography>
+                <Typography variant="h5" fontWeight= "Bold" gutterBottom> Welcome Back </Typography>
+                <Typography variant="body2" color="text.secondary" gutterBottom> Login to your account </Typography>
 
-                <Box>
+                <Divider sx={{ my: 2 }} />
+
+                <Stack spacing={2} sx={{ mb: 3}}>
                     <TextField
                         type="email"
                         label="Email"
                         variant="outlined"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        InputProps={{
-                            style: { color: "white"},
-                        }}
-                        InputLabelProps={{
-                            style: { color: "white"},
-                        }}
                     />
 
                     <TextField
@@ -64,21 +61,20 @@ const Login: React.FC = () => {
                         variant="outlined"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        InputProps={{
-                            style: { color: "white"},
-                        }}
-                        InputLabelProps={{
-                            style: { color: "white"}
-                        }}
                     />
 
                     <Button
                         variant="contained"
-                        color="primary"
+                        size="large"
                         onClick={handleLogin}
+                        fullWidth
                         sx={{
-                            mt: 2, 
-                            fontWeight: "bold"
+                            mb: 2, 
+                            backgroundColor: "#1976d2",
+                            color: "white",
+                            "&:hover": {
+                                backgroundColor: "#1565c0",
+                            },
                         }}
                     >
                         Login 
@@ -88,14 +84,19 @@ const Login: React.FC = () => {
                         variant="text"
                         color="inherit"
                         onClick={ () => navigate("/signup")}
+                        fullWidth
                         sx={{
-                            mt: 1
+                            color: "#1976dc",
+                            textTransform: "none",
+                            "&:hover": {
+                                textDecoration: "underline",
+                            },
                         }}
                     >
                         Don't have an account? Sign Up 
                     </Button>
 
-                </Box>
+                </Stack>
             </Paper>
        </Container>
     );
