@@ -2,7 +2,33 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  display: flex; /* Utilisation de flexbox pour la disposition horizontale */
+  justify-content: space-between; /* Sépare le texte et le formulaire */
+  align-items: center; /* Aligne verticalement les éléments */
+}
+
+.text-section {
+  flex: 1; /* Occupe l'espace disponible à gauche */
+  max-width: 600px; /* Largeur maximale pour le texte */
+  text-align: left;
+  padding-right: 2rem;
+}
+
+.text-section h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.text-section p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+.form-section {
+  flex: 1; /* Occupe l'espace disponible à droite */
+  max-width: 500px; /* Largeur maximale pour les formulaires */
 }
 
 .logo {
@@ -11,26 +37,13 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
 }
 
 .card {
