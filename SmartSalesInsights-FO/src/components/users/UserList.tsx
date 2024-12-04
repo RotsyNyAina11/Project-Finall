@@ -49,7 +49,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
             {users.map((user) => (
               <TableRow key={user.id}>
                 <TableCell sx={{color:"gray"}}>{user.name}</TableCell>
-                <TableCell sx={{color:"gray"}}>${user.email}</TableCell>
+                <TableCell sx={{color:"gray"}}>{user.email}</TableCell>
                 <TableCell sx={{color:"gray"}}>{user.role}</TableCell>
                 <TableCell sx={{color:"gray"}}>{user.password}</TableCell>
                 <TableCell align="center" sx={{color:"gray"}}>

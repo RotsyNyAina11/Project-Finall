@@ -24,8 +24,18 @@ const Login: React.FC = () => {
         if( data.access_token ){
             localStorage.setItem("access_token", data.access_token);
             dispatch(login({ email, password }));
-            alert('connexion reussi');
-            navigate("/productPage");
+
+            // Decoder le token JWT pour obtenir le role
+            const decodedToken = JSON.parse(atob(data.access_token.split('.')[1]));
+            const role = decodedToken.role;
+
+            // Si le role est admin, redirige vers Dashboard
+            if (role === 'admin'){
+                alert('Connexion réussi en tant qu\'admin');
+                navigate("/main");
+            } else {
+                alert('Connexion réussi en tant que client');
+            }
         }else {
             alert("Invalid credentials");
         }

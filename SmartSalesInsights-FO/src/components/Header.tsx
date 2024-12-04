@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { AppBar, Grid, IconButton, InputBase, Menu, MenuItem, Toolbar } from "@mui/material";
+import { AppBar, Grid, IconButton, InputBase, Toolbar, Tooltip } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import MenuIcon from "@mui/icons-material/Menu";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LogoutIcon from "@mui/icons-material/Logout"
 
 const Header: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -66,32 +67,31 @@ const Header: React.FC = () => {
             },
           }}
         >
-          <MenuIcon sx={{ color: "#253053" }} />
-        </IconButton>
 
-        {/* Menu déroulant */}
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleMenuClose}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          sx={{
-            "& .MuiMenu-paper": {
-              backgroundColor: "secondary.main", // Utilise la couleur secondaire du thème
-              color: "#fff", // Texte en blanc
-            },
-          }}
-        >
-          <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
-          <MenuItem onClick={handleLogoutClick}>Log out </MenuItem>
-        </Menu>
+          <Tooltip title="Profile">
+            <IconButton
+              onClick={handleProfileClick}
+              sx={{
+                backgroundColor: "#f9f9f9",
+                "&:hover": { backgroundColor: "#f2f2f2"}
+              }}
+            >
+              <AccountCircleIcon sx={{ color: "#253053"}}/>
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="Logout">
+            <IconButton
+              onClick={handleLogoutClick}
+              sx={{
+                backgroundColor: "#f9f9f9",
+                "&:hover": { backgroundColor: "#f2f2f2" }
+              }}
+            >
+              <LogoutIcon sx={{ color: "#253053"}}/>
+            </IconButton>
+          </Tooltip>
+        </IconButton>
       </Toolbar>
     </AppBar>
   );

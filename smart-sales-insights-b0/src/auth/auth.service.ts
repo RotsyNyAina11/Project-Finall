@@ -13,7 +13,8 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signup(email: string, password: string): Promise<User> {
+
+  async signup(email: string, password: string, role: string = 'client'): Promise<User> {
     console.log(`Checking if email exists: ${email}`);
     const existingUser = await this.userRepository.findOne({ where: { email }});
     if(existingUser){
@@ -21,7 +22,7 @@ export class AuthService {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = this.userRepository.create({ email, password: hashedPassword });
+    const user = this.userRepository.create({ email, password: hashedPassword, role });
     return this.userRepository.save(user);
   }
 

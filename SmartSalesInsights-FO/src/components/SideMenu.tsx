@@ -53,7 +53,7 @@ const SideMenu: React.FC = () => {
             backgroundColor: "#4B5A7D",
           },
         }}
-        onClick={() => navigate("/dashboard")}
+        onClick={() => navigate("/main/dashboard")}
       >
         Dashboard
       </Button>
@@ -70,7 +70,7 @@ const SideMenu: React.FC = () => {
             backgroundColor: "#4B5A7D",
           },
         }}
-        onClick={() => navigate("/products")}
+        onClick={() => navigate("/main/products")}
       >
         Products
       </Button>
@@ -87,7 +87,7 @@ const SideMenu: React.FC = () => {
             backgroundColor: "#4B5A7D",
           },
         }}
-        onClick={() => navigate("/users")}
+        onClick={() => navigate("/main/users")}
       >
         Users
       </Button>
@@ -104,7 +104,7 @@ const SideMenu: React.FC = () => {
             backgroundColor: "#4B5A7D",
           },
         }}
-        onClick={() => navigate("/history")}
+        onClick={() => navigate("/main/history")}
       >
         History
       </Button>

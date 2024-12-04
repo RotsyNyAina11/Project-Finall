@@ -32,12 +32,13 @@
           >
             
 
-          <Routes>
-              <Route path="dashboard" element={<ChartParent/>}></Route>
-              <Route path="products" element={<ProductParent/>}></Route>
-              <Route path="users" element={<UserParent/>}></Route>
-              <Route path="history" element={<HistoryParent/>}></Route>
-            </Routes>
+              <Routes>
+                  <Route path="dashboard" element={<ChartParent/>}></Route>
+                  <Route path="products" element={<ProductParent/>}></Route>
+                  <Route path="users" element={<UserParent/>}></Route>
+                  <Route path="history" element={<HistoryParent/>}></Route>
+              </Routes>
+
         
           </Container>
         </Box>
