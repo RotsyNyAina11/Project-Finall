@@ -6,8 +6,9 @@ import Header from './components/Header'; */
 import './App.css'
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import  Dashboard  from './components/Dashboard';
 import {BrowserRouter as Router} from 'react-router-dom';
+//import  Dashboard  from './components/Dashboard';
+import ClientMainPage from './components/clients/ClientMainPage';
 
 
 
@@ -22,10 +23,11 @@ function App() {
           <Route path="/signup" element={<Signup/>}/>
           <Route path="#" element={<Login/>}/>
         </Routes>
-      <ProductParent />
-      </Router> */ }
+        <ProductParent />
+        <Dashboard />
+        </Router> */ }
      <Router>
-     <Dashboard />
+        <ClientMainPage/>
      </Router>
       
     </Provider>
