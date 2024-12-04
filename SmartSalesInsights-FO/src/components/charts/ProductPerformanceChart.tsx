@@ -44,7 +44,7 @@ const ProductPerformanceChart: React.FC<ProductPerformanceProps> = ({ products }
     responsive: true,
     plugins: {
       legend: {
-        position: 'bottom' as const,
+        position: 'right' as const,
         labels: {
           font: {
             size: 8, // Taille des labels de la légende

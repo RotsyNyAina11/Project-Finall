@@ -1,80 +1,88 @@
 import React from "react";
-import PageHeader from "../PageHeader";
-import PeopleOutlineTwoToneIcon from "@mui/icons-material/PeopleOutlineTwoTone";
 import ProductStockChart from "./ProductStockChart";
 import ProductPerformanceChart from "./ProductPerformanceChart";
-import { Grid2, Box } from "@mui/material"; // Utilisation de Grid2 et Box
 import AppPerformanceChart from "./AppPerformanceChart";
+import { Grid2, Box } from "@mui/material";
+import PageHeader from "../PageHeader";
+import PeopleOutlineTwoToneIcon from "@mui/icons-material/PeopleOutlineTwoTone";
 
 const ChartParent: React.FC = () => {
   const products = [
-    { name: 'Produit A', stockQuantity: 50 },
-    { name: 'Produit B', stockQuantity: 30 },
-    { name: 'Produit C', stockQuantity: 70 },
-    { name: 'Produit D', stockQuantity: 10 },
+    { name: "Produit A", stockQuantity: 1000 },
+    { name: "Produit B", stockQuantity: 30 },
+    { name: "Produit C", stockQuantity: 70 },
+    { name: "Produit D", stockQuantity: 10 },
+    { name: "Produit E", stockQuantity: 50 },
+    { name: "Produit F", stockQuantity: 30 },
+    { name: "Produit G", stockQuantity: 70 },
+    { name: "Produit H", stockQuantity: 10 },
+    { name: "Produit I", stockQuantity: 50 },
+    { name: "Produit J", stockQuantity: 30 },
+    { name: "Produit K", stockQuantity: 70 },
+    { name: "Produit L", stockQuantity: 10 },
   ];
-  
+
   return (
     <>
-      <PageHeader title="Chart Section" icon={<PeopleOutlineTwoToneIcon />} />
-      
-      {/* Container pour les graphiques */}
+        <PageHeader title="Chart Section" icon={<PeopleOutlineTwoToneIcon />}/>
+    <Grid2
+      container
+      sx={{
+        width: "100%", // Prend toute la largeur disponible
+        height: "75vh", // 80% de la hauteur de l'écran
+        display: "flex",
+        flexDirection: "row", // Alignement horizontal
+        justifyContent: "space-between", // Espacement uniforme entre les graphiques
+        alignItems: "center", // Centrer les graphiques verticalement
+        padding: "10px",
+        gap: "10px", // Espacement entre les graphiques
+      }}
+    >
+      {/* Premier graphique */}
       <Box
         sx={{
-          width: '80%',
-          margin: '0 auto',
-          display: 'flex',
-          justifyContent: 'space-between',  // Pour distribuer les éléments côte à côte
-          alignItems: 'center',
-          height: '400px',  // Hauteur fixe pour les graphiques
+          width: "32%", // Chaque graphique occupe environ un tiers de la largeur
+          height: "80%", // Adapte la hauteur à celle du conteneur
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          border: "1px solid gray",
+          padding:"10px" // Optionnel : pour délimiter chaque graphique
         }}
       >
-        {/* Premier graphique : ProductStockChart */}
-        <Box
-          sx={{
-            width: '48%',  // Largeur presque égale pour chaque graphique
-            height: { xs: '100%', sm: '50%', md: '50%' },// Hauteur fixe, même que le conteneur
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <ProductStockChart products={products} />
-        </Box>
-
-        {/* Deuxième graphique : ProductPerformanceChart */}
-        <Box
-          sx={{
-            width: '48%',  // Largeur presque égale pour chaque graphique
-            height: '100%', // Hauteur fixe, même que le conteneur
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <ProductPerformanceChart products={products} />
-        </Box>
+        <ProductStockChart products={products}/>
       </Box>
 
-      {/* Troisième graphique en dessous des deux premiers */}
-      <Grid2
-        container
-        spacing={3}
-        justifyContent="center"
-        style={{ width: '80%', margin: '20px auto' }}
-        component="div"
+      {/* Deuxième graphique */}
+      <Box
+        sx={{
+          width: "32%",
+          height: "80%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          border: "1px solid gray",
+          padding:"10px"
+        }}
       >
-        <Grid2
-          sx={{
-            width: { xs: '100%', sm: '50%', md: '50%' },
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <AppPerformanceChart products={products} />
-        </Grid2>
-      </Grid2>
+        <ProductPerformanceChart products={products} />
+      </Box>
+
+      {/* Troisième graphique */}
+      <Box
+        sx={{
+          width: "32%",
+          height: "80%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          border: "1px solid gray",
+          padding:"10px"
+        }}
+      >
+        <AppPerformanceChart products={products} />
+      </Box>
+    </Grid2>
     </>
   );
 };

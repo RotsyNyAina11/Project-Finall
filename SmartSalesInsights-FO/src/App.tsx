@@ -5,11 +5,12 @@ import Signup from "./components/SignupForm"; */
 import Header from './components/Header'; */
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import  Dashboard  from './components/Dashboard';
 import {BrowserRouter as Router} from 'react-router-dom';
 import Login  from './components/LoginForm';
 import Signup from './components/SignupForm';
 import { Routes, Route } from 'react-router-dom';
+import  Dashboard  from './components/Dashboard';
+
 
 
 
@@ -25,11 +26,6 @@ function App() {
           <Route path="/main/*" element={<Dashboard/>}/>
         </Routes>
       </Router>
-    {/* /*  
-     <Router>
-     <Dashboard />
-     </Router>
-    */ }
       
     </Provider>
   )

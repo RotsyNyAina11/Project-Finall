@@ -31,20 +31,44 @@ import DeleteIcon from '@mui/icons-material/Delete';
     };
   
     return (
-      <TableContainer component={Paper}>
-        <Table>
+      <TableContainer component={Paper} sx={{ maxHeight: "60vh", overflowY: "auto" }}>
+        <Table stickyHeader >
           {/* En-tête de la table */}
           <TableHead>
             <TableRow>
-              <TableCell align="left" sx={{color:"gray"}}>Name</TableCell>
-              <TableCell align="left" sx={{color:"gray"}}>Price</TableCell>
-              <TableCell align="left" sx={{color:"gray"}}>Category</TableCell>
-              <TableCell align="center" sx={{color:"gray"}}>Actions</TableCell>
+              <TableCell align="left"  sx={{
+                color: "white", // Couleur du texte
+                backgroundColor: "#2C66AA", // Couleur de fond
+                fontWeight: "bold", // Texte en gras
+              }}
+          >
+            Name</TableCell>
+              <TableCell align="left" 
+                 sx={{
+                  color: "white", // Couleur du texte
+                  backgroundColor: "#2C66AA", // Couleur de fond
+                  fontWeight: "bold", // Texte en gras
+                }}
+              >Price</TableCell>
+              <TableCell align="left" 
+                 sx={{
+                  color: "white", // Couleur du texte
+                  backgroundColor: "#2C66AA", // Couleur de fond
+                  fontWeight: "bold", // Texte en gras
+                }}
+              >Category</TableCell>
+              <TableCell align="center" 
+                 sx={{
+                  color: "white", // Couleur du texte
+                  backgroundColor: "#2C66AA", // Couleur de fond
+                  fontWeight: "bold", // Texte en gras
+                }}
+              >Actions</TableCell>
             </TableRow>
           </TableHead>
   
           {/* Corps de la table */}
-          <TableBody>
+          <TableBody >
             {products.map((product) => (
               <TableRow key={product.id}>
                 <TableCell sx={{color:"gray"}}>{product.name}</TableCell>

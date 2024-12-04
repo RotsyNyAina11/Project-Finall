@@ -118,9 +118,9 @@ interface AddProductFormProps {
                 color:"gray"
               }}
             >
-              <MenuItem value="Vetement" >Vetement</MenuItem>
-              <MenuItem value="Chaussure">Chaussure</MenuItem>
-              <MenuItem value="Casquette">Casquette</MenuItem>
+              <MenuItem value="Vetement" sx={{color:"gray"}} >Vetement</MenuItem>
+              <MenuItem value="Chaussure" sx={{color:"gray"}}>Chaussure</MenuItem>
+              <MenuItem value="Casquette" sx={{color:"gray"}}>Casquette</MenuItem>
             </Select>
           </FormControl>
         </Grid2>
