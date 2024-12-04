@@ -5,10 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { AdminGuard } from 'src/admin/admin.guard';
+import { BlacklistedToken } from './entities/token.entity';
+
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, BlacklistedToken]),
     JwtModule.register({
       secret: '123', // Utilisez un secret sécurisé en prod
       signOptions: { expiresIn: '1h' },

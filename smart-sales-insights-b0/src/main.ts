@@ -6,7 +6,7 @@ async function bootstrap() {
 
   //resolve cors probleme doing request
   app.enableCors({
-    origin: 'http://localhost:5173', // Remplacez par l'URL de votre client
+    origin: 'http://localhost:5173', 
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Si vous utilisez des cookies
   });

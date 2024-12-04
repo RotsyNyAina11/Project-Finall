@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 import { UserApp } from './user/entities/user.entity';
 import { HistoryModule } from './history/history.module';
 import { User } from './auth/entities/user.entity';
+import { BlacklistedToken } from './auth/entities/token.entity';
 dotenv.config();
 
 @Module({
@@ -22,7 +23,7 @@ dotenv.config();
       username: 'postgres',
       password: 'lengla',
       database: 'Projectfinal',
-      entities: [UserApp, Product, User],
+      entities: [UserApp, Product, User, BlacklistedToken],
       synchronize: true,
     }),
     AuthModule,

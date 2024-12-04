@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { AppBar, Grid, IconButton, InputBase, Toolbar, Tooltip } from "@mui/material";
+import { AppBar, Grid, IconButton, InputBase, Toolbar, Menu, MenuItem } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LogoutIcon from "@mui/icons-material/Logout"
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 
 const Header: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -20,8 +23,26 @@ const Header: React.FC = () => {
     handleMenuClose();
   };
 
-  const handleLogoutClick = () => {
+  const handleLogoutClick = async () => {
     console.log("Logout clicked");
+
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      console.error("No token found in localStorage");
+      return;
+    }
+
+    try{
+      const token = localStorage.getItem("access_token");
+      if(token ) {
+              await axios.post('http://localhost:3000/auth/logout',  { token }, { headers: { Authorization: `Bearer ${token}`}});
+        localStorage.removeItem('access_token');
+        navigate("/login");
+      }
+    } catch(error){
+      console.error("Logout error", error);
+    }
+
     handleMenuClose();
   };
 
@@ -57,41 +78,31 @@ const Header: React.FC = () => {
           />
         </Grid>
 
-        {/* Bouton de menu hamburger */}
-        <IconButton
-          onClick={handleMenuOpen}
-          sx={{
-            backgroundColor: "#f9f9f9",
-            "&:hover": {
-              backgroundColor: "#f2f2f2",
-            },
-          }}
-        >
+        
+        {/* Menu de profil et déconnexion */}
+        <div>
+          <IconButton
+            onClick={handleMenuOpen}
+            sx={{
+              backgroundColor: "#f9f9f9",
+              "&:hover": {
+                backgroundColor: "#f2f2f2",
+              },
+            }}
+          >
+            <AccountCircleIcon sx={{ color: "#253053" }} />
+          </IconButton>
 
-          <Tooltip title="Profile">
-            <IconButton
-              onClick={handleProfileClick}
-              sx={{
-                backgroundColor: "#f9f9f9",
-                "&:hover": { backgroundColor: "#f2f2f2"}
-              }}
-            >
-              <AccountCircleIcon sx={{ color: "#253053"}}/>
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip title="Logout">
-            <IconButton
-              onClick={handleLogoutClick}
-              sx={{
-                backgroundColor: "#f9f9f9",
-                "&:hover": { backgroundColor: "#f2f2f2" }
-              }}
-            >
-              <LogoutIcon sx={{ color: "#253053"}}/>
-            </IconButton>
-          </Tooltip>
-        </IconButton>
+          {/* Menu contextuel */}
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+          >
+            <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
+            <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
+          </Menu>
+        </div>
       </Toolbar>
     </AppBar>
   );

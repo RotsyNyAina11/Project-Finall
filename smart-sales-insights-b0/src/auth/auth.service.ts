@@ -4,18 +4,22 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt';
+import { BlacklistedToken } from './entities/token.entity';
+
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    @InjectRepository(BlacklistedToken)
+    private blacklistedTokenRepository: Repository<BlacklistedToken>,
     private jwtService: JwtService,
   ) {}
 
 
   async signup(email: string, password: string, role: string = 'client'): Promise<User> {
-    console.log(`Checking if email exists: ${email}`);
+    console.log('Checking if email exists: ${email}');
     const existingUser = await this.userRepository.findOne({ where: { email }});
     if(existingUser){
       throw new BadRequestException('Email already in use');
@@ -34,4 +38,20 @@ export class AuthService {
     }
     throw new Error('Invalid credentials');
   }
-}
+
+  async logout(token: string): Promise<void> {
+    try {
+      console.log('Blacklisting token:', token);
+      await this.blacklistedTokenRepository.save({ token });
+      console.log('Token blacklisted successfully');
+    } catch (error) {
+      console.error('Error blacklisting token:', error);
+      throw new BadRequestException('Failed to blacklist token');
+    }
+  }
+
+  async isTokenBlacklisted(token: string): Promise<boolean> {
+    const blacklistedToken = await this.blacklistedTokenRepository.findOne({ where: { token } });
+    return !!blacklistedToken;
+  }
+} 
