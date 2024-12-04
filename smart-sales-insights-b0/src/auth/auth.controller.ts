@@ -1,48 +1,35 @@
-// src/auth/auth.controller.ts
-import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
+import { Controller, Post, Body, UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private authService: AuthService) {}
+
+  
+  @Post('signup')
+  async signup(
+      @Body('email') email: string,
+      @Body('password') password: string,
+  ) {
+      try {
+          return await this.authService.signup(email, password);
+      } catch (error) {
+          console.error('Signup error:', error.message); 
+          throw new BadRequestException(error.message);
+      }
+  }
+
 
   @Post('login')
-  async login(@Body() body: { email: string; password: string }){
-    const { email, password } = body;
-
-    if(!email || !password){
-        throw new BadRequestException('Email and password required');
+  async login(
+    @Body('email') email: string,
+    @Body('password') password: string,
+  ) {
+    try {
+      const token = await this.authService.login(email, password);
+      return { access_token: token };
+    } catch (error) {
+      throw new UnauthorizedException('Invalid credentials');
     }
-
-    if(!this.isValidateEmail(email)){
-        throw new BadRequestException('Invalid email format');
-    }
-
-    return this.authService.login(email, password);
-    
-  }
-
-  @Post('signup')
-  async signup(@Body() body: { email: string; password: string }) {
-    const { email, password } = body;
-
-    if(!email || !password ){
-        throw new BadRequestException('Email and Password required ');
-    }
-
-    if(!this.isValidateEmail(email)) {
-        throw new BadRequestException('Invalid Email format');
-    }
-
-    if(password.length < 6){
-        throw new BadRequestException('Password must be at least 6 characters long');
-    }
-
-    return this.authService.signup(email, password);
-  }
-
-  private isValidateEmail(email: string ) : boolean {
-    const emailRegex = /^[^\s@]+[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
   }
 }

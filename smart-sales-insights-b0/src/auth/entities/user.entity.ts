@@ -11,9 +11,6 @@ export class User {
     @Column()
     password: string;
 
-    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-    createdAt: Date;
-  
-    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-    updatedAt: Date;
+    @Column({ default: 'client' })
+    role: string;
 }
