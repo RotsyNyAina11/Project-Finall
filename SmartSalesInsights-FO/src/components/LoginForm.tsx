@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Container, Paper, TextField, Typography, Divider, Stack } from "@mui/material";
+import { Button, Container, Paper, TextField, Typography, Divider, Stack, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {  login } from "../store/features/authSlice"
@@ -10,6 +10,10 @@ const Login: React.FC = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [dialogMessage, setDialogMessage] = useState('');
+    const [dialogTitle, setDialogTitle] = useState('');
+    const [isError, setIsError] = useState(false);
 
     const handleLogin = async () => {
         const response = await fetch("http://localhost:3000/auth/login", {
@@ -31,15 +35,28 @@ const Login: React.FC = () => {
 
             // Si le role est admin, redirige vers Dashboard
             if (role === 'admin'){
-                alert('Connexion réussi en tant qu\'admin');
+                console.log('Tafiditra ve');
+                setDialogTitle('Connection successful');
+                setDialogMessage('You are logged in as administrator.');
                 navigate("/main");
             } else {
-                alert('Connexion réussi en tant que client');
+                setDialogTitle('Connection successful');
+                setDialogMessage('You are logged in as client.');
             }
         }else {
-            alert("Invalid credentials");
+            setDialogTitle('Error');
+            setDialogMessage('Invalid credentials. Please try again.');
+            setIsError(true);
         }
+        setDialogOpen(true);
     };
+
+    const handleCloseDialog = () => {
+        setDialogOpen(false);
+        if(!isError){
+            navigate('/');
+        }
+    }
 
     return (
         <Container
@@ -122,6 +139,26 @@ const Login: React.FC = () => {
                     Don’t have an account? Sign Up
                 </Button>
             </Paper>
+
+            {/** Boite de dialogue de confirmation ou erreur */}
+            <Dialog
+                open={dialogOpen}
+                onClose={handleCloseDialog}
+            >
+                <DialogTitle>{dialogTitle}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        {dialogMessage}
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={handleCloseDialog} color="primary">
+                        OK
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
         </Container>
     );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AppBar, Grid, IconButton, InputBase, Toolbar, Menu, MenuItem } from "@mui/material";
+import { AppBar, Grid, IconButton, InputBase, Toolbar, Menu, MenuItem, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import axios from "axios";
 
 const Header: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -23,7 +24,12 @@ const Header: React.FC = () => {
     handleMenuClose();
   };
 
-  const handleLogoutClick = async () => {
+  const handleLogoutClick = () => {
+    setDialogOpen(true);
+    handleMenuClose();
+  }
+
+  const handleConfirmLogout = async () => {
     console.log("Logout clicked");
 
     const token = localStorage.getItem("access_token");
@@ -43,10 +49,15 @@ const Header: React.FC = () => {
       console.error("Logout error", error);
     }
 
-    handleMenuClose();
+    setDialogOpen(false);
   };
 
+  const handleCancelLogout = () => {
+    setDialogOpen(false);
+  }
+
   return (
+    <>
     <AppBar
       position="static"
       sx={{
@@ -105,6 +116,38 @@ const Header: React.FC = () => {
         </div>
       </Toolbar>
     </AppBar>
+
+    {/* Boite de dialogue de confirmation */}
+    <Dialog
+      open={dialogOpen}
+      onClose={handleCancelLogout}
+    >
+      <DialogTitle>Confirmer la déconnexion</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          Voulez-vous vraiment vous déconnecter ?
+        </DialogContentText>
+      </DialogContent>
+
+      <DialogActions>
+        <Button
+          onClick={handleCancelLogout}
+          color="primary"
+        >
+          Annuler
+        </Button>
+        <Button
+          onClick={handleConfirmLogout}
+          color="primary"
+          variant="contained"
+        >
+          Confirmer
+        </Button>
+      </DialogActions>
+    </Dialog>
+
+
+    </>
   );
 };
 
